@@ -17,7 +17,7 @@ import androidx.core.content.ContextCompat
 import com.example.contacts.presentation.theme.ContactsTheme
 import com.example.contacts.presentation.ui.screens.ContactScreen
 import com.example.contacts.presentation.ui.screens.ContactViewModel
-import com.example.contacts.presentation.utils.PhoneUtil
+import com.example.contacts.presentation.ktx.startCallIntent
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -36,12 +36,8 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     ContactScreen(contacts = contacts) { contactDetail ->
-                            myViewModel.makeCallback = {
-                                val phoneUtil = PhoneUtil(this)
-                                phoneUtil.makeCall(contactDetail.phoneNumber)
-                            }
-                            myViewModel.makePhoneCall()
-                        }
+                       startCallIntent(contactDetail.phoneNumber)
+                    }
                 }
             }
         }
